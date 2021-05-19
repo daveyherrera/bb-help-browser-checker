@@ -47,14 +47,14 @@ let userAgent = navigator.userAgent;
 // As of may 2021, this object defines the validation values that a browser may receive
 const browserValidation = {
   Edg: {
-    name: "Edge",
+    name: "Microsoft Edge",
     version: 87,
     nameAndVersionPosition: [3],
     namePosition: 4,
     versionPosition: 6,
   },
   EdgA: {
-    name: "Edge",
+    name: "Microsoft Edge for Android",
     // Mobile version on Android has a different version than in PC
     version: 46,
     nameAndVersionPosition: [3],
@@ -62,7 +62,7 @@ const browserValidation = {
     versionPosition: 6,
   },
   EdgiOS: {
-    name: "Edge",
+    name: "Microsoft Edge for iOS",
     // Mobile version on iOS has a different version than in PC
     version: 46,
     nameAndVersionPosition: [3],
@@ -70,7 +70,7 @@ const browserValidation = {
     versionPosition: 6,
   },
   Chrome: {
-    name: "Chrome",
+    name: "Google Chrome",
     version: 87,
     nameAndVersionPosition: [1],
     namePosition: 2,
@@ -78,7 +78,7 @@ const browserValidation = {
   },
   // Google chrome on iOS is called CriOS
   CriOS: {
-    name: "Chrome",
+    name: "Google Chrome for iOS",
     version: 87,
     // This is the position of the values based on the regex
     nameAndVersionPosition: [1],
@@ -110,7 +110,7 @@ const browserValidation = {
     versionPosition: 10,
   },
   FxiOS: {
-    name: "Firefox",
+    name: "Firefox for iOS",
     version: 33,
     // This is the position of the values based on the regex
     nameAndVersionPosition: [1],
@@ -173,8 +173,12 @@ if (regexResultArr == null) {
   }
 }
 
+let fullBrowserName;
+
 if (!browserName) {
   browserName = undefined;
+} else {
+  fullBrowserName = browserValidation[browserName].name;
 }
 
 // defining an object that returns the required values
@@ -270,12 +274,16 @@ let browser = {
       return "Windows";
     } else if (userAgent.includes("Windows NT") && userAgent.includes("Xbox")) {
       return "Windows for Xbox";
-    } else if (userAgent.includes("Linux") && userAgent.includes("Android")) {
+    } else if (userAgent.includes("Android")) {
       return "Android";
     } else if (userAgent.includes("X11") || userAgent.includes("Linux")) {
       return "Linux";
     } else if (
-      userAgent.includes(browserValidation.Safari.platform.mobile.name)
+      userAgent.includes(
+        browserValidation.Safari.platform.mobile.name[0] ||
+          browserValidation.Safari.platform.mobile.name[1] ||
+          browserValidation.Safari.platform.mobile.name[2]
+      )
     ) {
       return "iOS";
     } else if (userAgent.includes("CrOS")) {
@@ -307,7 +315,7 @@ const messagesToDisplay = {
     objectAtt: browser.isNameValid(),
     supported:
       greenCheck +
-      browserName +
+      fullBrowserName +
       messages[browser.language()].browserNameSupported +
       closeCheck,
     unsupported:
