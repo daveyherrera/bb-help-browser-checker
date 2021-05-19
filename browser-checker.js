@@ -130,7 +130,6 @@ const regex = [
 let browserName;
 let browserVersion;
 let fullBrowserNameAndVersion = [];
-let mobile = false;
 const validBrowserNames = Object.keys(browserValidation);
 
 let regexResultArr = [];
@@ -178,7 +177,7 @@ if (!browserName) {
   browserName = undefined;
 }
 
-// defining an object that returns
+// defining an object that returns the required values
 let browser = {
   validBrowsers: browserValidation,
   nameAndVersion: function () {
