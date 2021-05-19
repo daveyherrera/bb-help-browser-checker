@@ -275,7 +275,7 @@ let browser = {
     } else if (userAgent.includes("X11") || userAgent.includes("Linux")) {
       return "Linux";
     } else if (
-      userAgent.includes(this.validBrowsers.Safari.platform.mobile.name)
+      userAgent.includes(browserValidation.Safari.platform.mobile.name)
     ) {
       return "iOS";
     } else if (userAgent.includes("CrOS")) {
