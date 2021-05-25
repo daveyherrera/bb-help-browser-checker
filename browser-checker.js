@@ -85,22 +85,6 @@ const browserValidation = {
     namePosition: 2,
     versionPosition: 3,
   },
-  Safari: {
-    name: "Safari",
-    nameAndVersionPosition: [5, 2],
-    namePosition: 5,
-    versionPosition: 2,
-    platform: {
-      desktop: {
-        name: ["MacIntel"],
-        version: 13,
-      },
-      mobile: {
-        name: ["iPhone", "iPad", "iPod"],
-        version: 12,
-      },
-    },
-  },
   Firefox: {
     name: "Firefox",
     version: 78,
@@ -116,6 +100,22 @@ const browserValidation = {
     nameAndVersionPosition: [1],
     namePosition: 2,
     versionPosition: 3,
+  },
+  Safari: {
+    name: "Safari",
+    nameAndVersionPosition: [5, 2],
+    namePosition: 5,
+    versionPosition: 2,
+    platform: {
+      desktop: {
+        name: ["MacIntel"],
+        version: 13,
+      },
+      mobile: {
+        name: ["iPhone", "iPad", "iPod"],
+        version: 12,
+      },
+    },
   },
 };
 
@@ -182,6 +182,7 @@ if (!browserName) {
 }
 
 console.log(browserVersion);
+
 // defining an object that returns the required values
 let browser = {
   validBrowsers: browserValidation,
@@ -260,6 +261,8 @@ let browser = {
             return true;
           }
         }
+      } else {
+        return false;
       }
     }
   },
@@ -344,7 +347,7 @@ const messagesToDisplay = {
       closeCheck,
     unsupported:
       redCheck +
-      messages[browser.language()].browserCookiesAllowed +
+      messages[browser.language()].browserCookiesBlocked +
       closeCheck,
   },
   popUpsValidation: {
