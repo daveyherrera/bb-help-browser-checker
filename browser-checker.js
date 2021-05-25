@@ -139,7 +139,6 @@ for (let i = 0; i < regex.length; i++) {
     regexResultArr = userAgent.match(regex[i]);
     break;
   }
-  break;
 }
 
 // Evaluates if the result received by the regex is null, if it is, then browser is not valid.
