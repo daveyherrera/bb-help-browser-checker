@@ -119,12 +119,13 @@ const browserValidation = {
   },
 };
 
+// Firefox for iOS is painfully hard to detect with only one regex, that is why it is on a different place
 const regex = [
   /(Mobile)? (\bSafari\/\d+\.\d+\b)? ?\b((Edg(A|iOS|e)?)\/(\d+)(.\d+\.){0,2}(\d+)?)\b ?((\bMobile)\/\w+)?/,
   /\b(Version)\/(\d+)(\.\d+){0,2}\b (Mobile\/\w+)? ?\b(Safari)\/(\d+)(\.\d+){0,3}$/,
   /[^Brave] \b((Chrome|CriOS)\/(\d+)(\.\d+){0,4})\b (Mobile(\/\w+\b)?)? ?\bSafari\/(\d+)(\.\d+){0,3}$/,
   /\bGecko\/(\w+)(\.\d+){0,4}\b \b((Firefox)\/(\d+)(\.\d+){0,3})$/,
-  /(\b(FxiOS)\/(\d+)\.\d+\b) \bMobile\/(\w+)(\.\d+){0,4}\b/
+  /(\b(FxiOS)\/(\d+)\.\d+\b)/,
 ];
 
 // declaring empty variables
@@ -132,12 +133,12 @@ let browserName;
 let browserVersion;
 let fullBrowserNameAndVersion = [];
 const validBrowserNames = Object.keys(browserValidation);
-
 let regexResultArr = [];
 
 for (let i = 0; i < regex.length; i++) {
   if ((regexResultArr = userAgent.match(regex[i]))) {
     regexResultArr = userAgent.match(regex[i]);
+    break;
   }
 }
 
@@ -181,15 +182,6 @@ if (!browserName) {
   fullBrowserName = browserValidation[browserName].name;
 }
 
-document.writeln(
-  browserVersion,
-  browserName,
-  fullBrowserName,
-  fullBrowserNameAndVersion
-);
-
-document.writeln(userAgent);
-
 // defining an object that returns the required values
 let browser = {
   validBrowsers: browserValidation,
@@ -224,10 +216,6 @@ let browser = {
     }
   },
   version: function () {
-    if (browserVersion >= this.validBrowsers[browserName].version) {
-      return true;
-    }
-
     if (browserName == "Safari") {
       if (
         this.validBrowsers.Safari.platform.desktop.name.includes(this.platform)
@@ -250,6 +238,8 @@ let browser = {
           return true;
         }
       }
+    } else if (browserVersion >= this.validBrowsers[browserName].version) {
+      return true;
     } else {
       return false;
     }
@@ -337,7 +327,7 @@ const messagesToDisplay = {
       closeCheck,
   },
   browserVersion: {
-    objectAtt: browser.version,
+    objectAtt: browser.version(),
     supported:
       greenCheck +
       browser.nameAndVersion() +
