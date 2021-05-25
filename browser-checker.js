@@ -120,7 +120,7 @@ const browserValidation = {
 };
 
 const regex = [
-  /(\b(FxiOS)\/(\d+)\.\d+\b) \b(Gecko|Mobile)\/(\w+)(\.\d+){0,4}\b/,
+  /(\b(FxiOS)\/(\d+)\.\d+\b) \bMobile\/(\w+)(\.\d+){0,4}\b/,
   /(Mobile)? (\bSafari\/\d+\.\d+\b)? ?\b((Edg(A|iOS|e)?)\/(\d+)(.\d+\.){0,2}(\d+)?)\b ?((\bMobile)\/\w+)?/,
   /\b(Version)\/(\d+)(\.\d+){0,2}\b (Mobile\/\w+)? ?\b(Safari)\/(\d+)(\.\d+){0,3}$/,
   /[^Brave] \b((Chrome|CriOS)\/(\d+)(\.\d+){0,4})\b (Mobile(\/\w+\b)?)? ?\bSafari\/(\d+)(\.\d+){0,3}$/,
