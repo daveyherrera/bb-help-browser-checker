@@ -181,7 +181,12 @@ if (!browserName) {
   fullBrowserName = browserValidation[browserName].name;
 }
 
-console.log(browserVersion);
+console.log(
+  browserVersion,
+  browserName,
+  fullBrowserName,
+  fullBrowserNameAndVersion
+);
 
 // defining an object that returns the required values
 let browser = {
