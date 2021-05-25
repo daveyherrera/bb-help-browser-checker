@@ -188,6 +188,8 @@ console.log(
   fullBrowserNameAndVersion
 );
 
+document.writeln(userAgent);
+
 // defining an object that returns the required values
 let browser = {
   validBrowsers: browserValidation,
@@ -221,7 +223,35 @@ let browser = {
       return false;
     }
   },
-  version: browserVersion,
+  version: function () {
+    if (browserVersion >= this.validBrowsers[browserName].version) {
+      return true;
+    } else if (browserName == "Safari") {
+      if (
+        this.validBrowsers.Safari.platform.desktop.name.includes(this.platform)
+      ) {
+        if (
+          browserVersion >= this.validBrowsers.Safari.platform.desktop.version
+        ) {
+          return true;
+        }
+      }
+      if (
+        this.validBrowsers[browserName].platform.mobile.name.includes(
+          this.platform
+        )
+      ) {
+        if (
+          browserVersion >=
+          this.validBrowsers[browserName].platform.mobile.version
+        ) {
+          return true;
+        }
+      }
+    } else {
+      return false;
+    }
+  },
   // checks if the popups are allowed
   arePopUpsAllowed: function () {
     let newWindow = window.open(
@@ -237,38 +267,10 @@ let browser = {
     }
   },
   isBrowserValid: function () {
-    if (this.version == undefined || browserName == undefined) {
-      return false;
+    if (this.version() && this.isNameValid()) {
+      return true;
     } else {
-      if (this.version >= this.validBrowsers[browserName].version) {
-        return true;
-      } else if (browserName == "Safari") {
-        if (
-          this.validBrowsers.Safari.platform.desktop.name.includes(
-            this.platform
-          )
-        ) {
-          if (
-            this.version >= this.validBrowsers.Safari.platform.desktop.version
-          ) {
-            return true;
-          }
-        }
-        if (
-          this.validBrowsers[browserName].platform.mobile.name.includes(
-            this.platform
-          )
-        ) {
-          if (
-            this.version >=
-            this.validBrowsers[browserName].platform.mobile.version
-          ) {
-            return true;
-          }
-        }
-      } else {
-        return false;
-      }
+      return false;
     }
   },
   whichOS: function () {
