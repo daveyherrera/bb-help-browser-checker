@@ -182,7 +182,7 @@ if (!browserName) {
   fullBrowserName = browserValidation[browserName].name;
 }
 
-console.log(
+document.writeln(
   browserVersion,
   browserName,
   fullBrowserName,
