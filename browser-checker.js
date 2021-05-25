@@ -89,9 +89,9 @@ const browserValidation = {
     name: "Firefox",
     version: 78,
     // This is the position of the values based on the regex
-    nameAndVersionPosition: [7],
-    namePosition: 8,
-    versionPosition: 9,
+    nameAndVersionPosition: [3],
+    namePosition: 4,
+    versionPosition: 5,
   },
   FxiOS: {
     name: "Firefox for iOS",
