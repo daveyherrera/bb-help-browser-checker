@@ -79,7 +79,7 @@ const browserValidation = {
   // Google chrome on iOS is called CriOS
   CriOS: {
     name: "Google Chrome for iOS",
-    version: 87,
+    version: 33,
     // This is the position of the values based on the regex
     nameAndVersionPosition: [1],
     namePosition: 2,
@@ -123,7 +123,7 @@ const regex = [
   /(Mobile)? (\bSafari\/\d+\.\d+\b)? ?\b((Edg(A|iOS|e)?)\/(\d+)(.\d+\.){0,2}(\d+)?)\b ?((\bMobile)\/\w+)?/,
   /\b(Version)\/(\d+)(\.\d+){0,2}\b (Mobile\/\w+)? ?\b(Safari)\/(\d+)(\.\d+){0,3}$/,
   /[^Brave] \b((Chrome|CriOS)\/(\d+)(\.\d+){0,4})\b (Mobile(\/\w+\b)?)? ?\bSafari\/(\d+)(\.\d+){0,3}$/,
-  /(\b(FxiOS)\/(\d+\.\d+)\b)? \b(Gecko|Mobile)\/(\w+)(\.\d+){0,4}\b \b((Firefox|Safari)\/(\d+)(\.\d+){0,3})$/,
+  /(\b(FxiOS)\/(\d+)\.\d+\b)? \b(Gecko|Mobile)\/(\w+)(\.\d+){0,4}\b \b((Firefox|Safari)\/(\d+)(\.\d+){0,3})$/,
 ];
 
 // declaring empty variables
@@ -139,6 +139,7 @@ for (let i = 0; i < regex.length; i++) {
     regexResultArr = userAgent.match(regex[i]);
     break;
   }
+  break;
 }
 
 // Evaluates if the result received by the regex is null, if it is, then browser is not valid.
@@ -226,7 +227,9 @@ let browser = {
   version: function () {
     if (browserVersion >= this.validBrowsers[browserName].version) {
       return true;
-    } else if (browserName == "Safari") {
+    }
+
+    if (browserName == "Safari") {
       if (
         this.validBrowsers.Safari.platform.desktop.name.includes(this.platform)
       ) {
