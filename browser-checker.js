@@ -138,7 +138,6 @@ let regexResultArr = [];
 for (let i = 0; i < regex.length; i++) {
   if ((regexResultArr = userAgent.match(regex[i]))) {
     regexResultArr = userAgent.match(regex[i]);
-    break;
   }
 }
 
