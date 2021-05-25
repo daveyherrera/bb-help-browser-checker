@@ -79,7 +79,23 @@ const browserValidation = {
   // Google chrome on iOS is called CriOS
   CriOS: {
     name: "Google Chrome for iOS",
-    version: 87,
+    version: 33,
+    // This is the position of the values based on the regex
+    nameAndVersionPosition: [1],
+    namePosition: 2,
+    versionPosition: 3,
+  },
+  Firefox: {
+    name: "Firefox",
+    version: 78,
+    // This is the position of the values based on the regex
+    nameAndVersionPosition: [3],
+    namePosition: 4,
+    versionPosition: 5,
+  },
+  FxiOS: {
+    name: "Firefox for iOS",
+    version: 33,
     // This is the position of the values based on the regex
     nameAndVersionPosition: [1],
     namePosition: 2,
@@ -101,29 +117,14 @@ const browserValidation = {
       },
     },
   },
-  Firefox: {
-    name: "Firefox",
-    version: 78,
-    // This is the position of the values based on the regex
-    nameAndVersionPosition: [7],
-    namePosition: 9,
-    versionPosition: 10,
-  },
-  FxiOS: {
-    name: "Firefox for iOS",
-    version: 33,
-    // This is the position of the values based on the regex
-    nameAndVersionPosition: [1],
-    namePosition: 2,
-    versionPosition: 3,
-  },
 };
 
 const regex = [
+  /(\b(FxiOS)\/(\d+)\.\d+\b) \bMobile\/(\w+)(\.\d+){0,4}\b/,
   /(Mobile)? (\bSafari\/\d+\.\d+\b)? ?\b((Edg(A|iOS|e)?)\/(\d+)(.\d+\.){0,2}(\d+)?)\b ?((\bMobile)\/\w+)?/,
   /\b(Version)\/(\d+)(\.\d+){0,2}\b (Mobile\/\w+)? ?\b(Safari)\/(\d+)(\.\d+){0,3}$/,
-  /(\b(FxiOS)\/(\d+)\.\d+\b)? \b(Gecko|Mobile)\/(\w+)(\.\d+){0,4}\b \b(((Firefox)|Safari)\/(\d+)(\.\d+){0,3})$/,
   /[^Brave] \b((Chrome|CriOS)\/(\d+)(\.\d+){0,4})\b (Mobile(\/\w+\b)?)? ?\bSafari\/(\d+)(\.\d+){0,3}$/,
+  /\bGecko\/(\w+)(\.\d+){0,4}\b \b((Firefox)\/(\d+)(\.\d+){0,3})$/,
 ];
 
 // declaring empty variables
@@ -181,6 +182,15 @@ if (!browserName) {
   fullBrowserName = browserValidation[browserName].name;
 }
 
+document.writeln(
+  browserVersion,
+  browserName,
+  fullBrowserName,
+  fullBrowserNameAndVersion
+);
+
+document.writeln(userAgent);
+
 // defining an object that returns the required values
 let browser = {
   validBrowsers: browserValidation,
@@ -214,7 +224,37 @@ let browser = {
       return false;
     }
   },
-  version: browserVersion,
+  version: function () {
+    if (browserVersion >= this.validBrowsers[browserName].version) {
+      return true;
+    }
+
+    if (browserName == "Safari") {
+      if (
+        this.validBrowsers.Safari.platform.desktop.name.includes(this.platform)
+      ) {
+        if (
+          browserVersion >= this.validBrowsers.Safari.platform.desktop.version
+        ) {
+          return true;
+        }
+      }
+      if (
+        this.validBrowsers[browserName].platform.mobile.name.includes(
+          this.platform
+        )
+      ) {
+        if (
+          browserVersion >=
+          this.validBrowsers[browserName].platform.mobile.version
+        ) {
+          return true;
+        }
+      }
+    } else {
+      return false;
+    }
+  },
   // checks if the popups are allowed
   arePopUpsAllowed: function () {
     let newWindow = window.open(
@@ -230,36 +270,10 @@ let browser = {
     }
   },
   isBrowserValid: function () {
-    if (this.version == undefined || browserName == undefined) {
-      return false;
+    if (this.version() && this.isNameValid()) {
+      return true;
     } else {
-      if (this.version >= this.validBrowsers[browserName].version) {
-        return true;
-      } else if (browserName == "Safari") {
-        if (
-          this.validBrowsers.Safari.platform.desktop.name.includes(
-            this.platform
-          )
-        ) {
-          if (
-            this.version >= this.validBrowsers.Safari.platform.desktop.version
-          ) {
-            return true;
-          }
-        }
-        if (
-          this.validBrowsers[browserName].platform.mobile.name.includes(
-            this.platform
-          )
-        ) {
-          if (
-            this.version >=
-            this.validBrowsers[browserName].platform.mobile.version
-          ) {
-            return true;
-          }
-        }
-      }
+      return false;
     }
   },
   whichOS: function () {
@@ -343,7 +357,7 @@ const messagesToDisplay = {
       closeCheck,
     unsupported:
       redCheck +
-      messages[browser.language()].browserCookiesAllowed +
+      messages[browser.language()].browserCookiesBlocked +
       closeCheck,
   },
   popUpsValidation: {
