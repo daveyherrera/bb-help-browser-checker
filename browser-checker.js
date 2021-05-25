@@ -123,8 +123,8 @@ const regex = [
   /(Mobile)? (\bSafari\/\d+\.\d+\b)? ?\b((Edg(A|iOS|e)?)\/(\d+)(.\d+\.){0,2}(\d+)?)\b ?((\bMobile)\/\w+)?/,
   /\b(Version)\/(\d+)(\.\d+){0,2}\b (Mobile\/\w+)? ?\b(Safari)\/(\d+)(\.\d+){0,3}$/,
   /[^Brave] \b((Chrome|CriOS)\/(\d+)(\.\d+){0,4})\b (Mobile(\/\w+\b)?)? ?\bSafari\/(\d+)(\.\d+){0,3}$/,
-  /(\b(FxiOS)\/(\d+)\.\d+\b)? \b(Gecko|Mobile)\/(\w+)(\.\d+){0,4}\b \b((\w+)\/(\d+)(\.\d+){0,3})$/,
-  /(\b(FxiOS)\/(\d+)\.\d+\b)? \b(Gecko|Mobile)\/(\w+)(\.\d+){0,4}\b/,
+  /\bGecko\/(\w+)(\.\d+){0,4}\b \b((Firefox)\/(\d+)(\.\d+){0,3})$/,
+  /(\b(FxiOS)\/(\d+)\.\d+\b) \b(Gecko|Mobile)\/(\w+)(\.\d+){0,4}\b/,
 ];
 
 // declaring empty variables
