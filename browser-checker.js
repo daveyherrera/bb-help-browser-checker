@@ -142,6 +142,8 @@ for (let i = 0; i < regex.length; i++) {
   }
 }
 
+document.writeln(regexResultArr);
+
 // Evaluates if the result received by the regex is null, if it is, then browser is not valid.
 if (regexResultArr == null) {
   // literally do nothing
