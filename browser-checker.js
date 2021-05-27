@@ -4,6 +4,20 @@
 // Using ISO 639-1 first two characters for language
 // In order to test IE had to change all variables from const or let to var
 
+// Getting the data from useragent
+var userAgent = navigator.userAgent;
+
+// green check for supported
+var greenCheck =
+  "<img CLASS='check' src='green_check.png' /> <span style='font-weight: bold;'>";
+// red check for unsupported
+var redCheck =
+  "<img CLASS='check' src='red_x.png' /> <span style='font-weight: bold;'>";
+// Closing the tags opened by red or green check
+var closeCheck = "</span><br/>";
+
+// validating the browser is internet explorer, if it is, the complete execution is stopped.
+
 var messages = {
   en: {
     browserNameSupported: " is supported",
@@ -41,8 +55,6 @@ var messages = {
     -- Firefox 78+ on any OS
 */
 
-// Getting the data from useragent
-var userAgent = navigator.userAgent;
 // At the moment of this implementation, the object navigator.userAgentData is not available on Safari and Firefox, opera supports it but the position is different than edge and chrome...
 
 // As of may 2021, this object defines the validation values that a browser may receive
@@ -299,15 +311,6 @@ var browser = {
   },
 };
 
-var greenCheck =
-  "<img CLASS='check' src='green_check.png' /> <span style='font-weight: bold;'>";
-var redCheck =
-  "<img CLASS='check' src='red_x.png' /> <span style='font-weight: bold;'>";
-
-var alertCheck = "";
-
-var closeCheck = "</span></br>";
-
 var messagesToDisplay = {
   browserValidation: {
     objectAtt: browser.isBrowserValid(),
@@ -362,15 +365,31 @@ var messagesToDisplay = {
   },
 };
 
+// VALIDATING IF THE BROWSER IS INTERNET EXPLORER
+// Ie Does not support includes.
+if (userAgent.indexOf("MSIE") >= 0 || userAgent.indexOf("Trident") >= 0) {
+  console.log(userAgent.indexOf("MSIE"));
+  console.log(userAgent.indexOf("Trident"));
+
+  document.writeln(messagesToDisplay.browserName.unsupported);
+  throw new Error(
+    "This is not an error. This is just to abort javascript - this text does not need translation"
+  );
+}
+
 var messagesToDisplayKeys = Object.keys(messagesToDisplay);
 
 var displayingMessages = function (arrayOfMessages) {
   // added os and language to show that this can also display 1 message at a time or all of them
   document.writeln(
-    ` <span style='font-weight: bold;'> The operating system is ${browser.whichOS()} </br></span>`
+    "<span style='font-weight: bold;'> The operating system is " +
+      browser.whichOS() +
+      "</br></span>"
   );
   document.writeln(
-    `<span style='font-weight: bold;'> The language is ${browser.language()} </br> </span>`
+    "<span style='font-weight: bold;'> The language is " +
+      browser.language() +
+      "</br></span>"
   );
   for (var i = 0; i < arrayOfMessages.length; i++) {
     messagesToDisplay[arrayOfMessages[i]].objectAtt
@@ -381,18 +400,3 @@ var displayingMessages = function (arrayOfMessages) {
 
 // To display all messages, please call the function displayingMessages and pass the messagesToDisplayKeys as parameters
 displayingMessages(messagesToDisplayKeys);
-var internetExplorerVariations = ["MSIE", "Trident"];
-
-if (userAgent.includes(internetExplorerVariations)) {
-  document.writeln(
-    ` <span style='font-weight: bold;'> The operating system is ${browser.whichOS()} </br></span>`
-  );
-  document.writeln(
-    `<span style='font-weight: bold;'> The language is ${browser.language()} </br> </span>`
-  );
-  document.writeln(messages[browser.language()].browserUnsupported);
-  document.writeln(messages[browser.language()].browserNameUnsupported);
-  document.writeln(messages[browser.language()].browserVersionUnsupported);
-  document.writeln(messages[browser.language()].browserCookiesBlocked);
-  document.writeln(messages[browser.language()].browserPopUpsBlocked);
-}
