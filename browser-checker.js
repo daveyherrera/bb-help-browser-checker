@@ -146,7 +146,6 @@ for (let i = 0; i < regex.length; i++) {
 
 // Evaluates if the result received by the regex is null, if it is, then browser is not valid.
 if (!regexResultArr) {
-  console.log("we got here");
   browserName = "";
   browserVersion = "";
   fullBrowserName = "";
