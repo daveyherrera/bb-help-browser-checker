@@ -9,6 +9,22 @@ The whole idea was to enable two things that the previous version lacked:
    2. Escalability on the displayed messages
    3. Readability and maintenance
 
+### Limitations
+
+Several browsers such as Vivaldi, Ghost or Brave use the EXACT same navigator.userAgent and navigator.userAgentData 
+
+   * Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" (Vivaldi on Windows)
+   * "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36"  (Chrome on macOs)
+
+UserAgentData is exactly the same as well.
+
+So, if the browser use the exact same userAgent as Google chrome, Safari, Firefox or Microsoft Edge we will not be able to identify them.
+
+### Recomendations
+
+We should not be identifiend supported navigators, that is not important, we should be identifying supported Browser engines, that way, we can identify this faster, easier and could increase the number of supported browsers.
+
+
 ### Supported versions
 
 The object messages contains the possible messages, the attributes are always in english and the main keys are the first two letters of the ISO-639-1, if more languages need to be added, it is possible to re-use the exact same structure and update the message.key with the new language first two letters.
