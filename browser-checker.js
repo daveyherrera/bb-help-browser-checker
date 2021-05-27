@@ -17,7 +17,7 @@ const messages = {
     browserCookiesBlocked: "Cookies are blocked",
   },
   es: {
-    browserNameSupported: "El nombre del navegador es soportado",
+    browserNameSupported: " es soportado",
     browserNameUnsupported: "El nombre del navegador no es soportado",
     browserVersionSupported: "La versión del navegador es soportada",
     browserVersionUnsupported: "La versión del navegador no es soportada",
