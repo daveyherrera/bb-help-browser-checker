@@ -2,8 +2,9 @@
 // Object created to make localization easier
 // DO NOT translate the text behind the :, only the text within double quotes "".
 // Using ISO 639-1 first two characters for language
+// In order to test IE had to change all variables from const or let to var
 
-const messages = {
+var messages = {
   en: {
     browserNameSupported: " is supported",
     browserNameUnsupported: " Your browser is not supported",
@@ -11,13 +12,13 @@ const messages = {
     browserVersionUnsupported: "The browser version is not supported",
     browserSupported: "Your browser is SUPPORTED",
     browserUnsupported: "Your browser is NOT SUPPORTED",
-    browserPopUpsAllowed: "Pop-up blocker is DISABLED",
-    browserPopUpsBlocked: "Pop-up blocker is ENABLED",
+    browserPopUpsAllowed: "Pop-up blocker is blocking new windows",
+    browserPopUpsBlocked: "Pop-up blocker is not blocking new windows",
     browserCookiesAllowed: "Cookies are enabled",
     browserCookiesBlocked: "Cookies are blocked",
   },
   es: {
-    browserNameSupported: " es soportado",
+    browserNameSupported: "El nombre del navegador es soportado",
     browserNameUnsupported: "El nombre del navegador no es soportado",
     browserVersionSupported: "La versión del navegador es soportada",
     browserVersionUnsupported: "La versión del navegador no es soportada",
@@ -41,11 +42,11 @@ const messages = {
 */
 
 // Getting the data from useragent
-let userAgent = navigator.userAgent;
+var userAgent = navigator.userAgent;
 // At the moment of this implementation, the object navigator.userAgentData is not available on Safari and Firefox, opera supports it but the position is different than edge and chrome...
 
 // As of may 2021, this object defines the validation values that a browser may receive
-const browserValidation = {
+var browserValidation = {
   Edg: {
     name: "Microsoft Edge",
     version: 87,
@@ -120,7 +121,7 @@ const browserValidation = {
 };
 
 // Firefox for iOS is painfully hard to detect with only one regex, that is why it is on a different place
-const regex = [
+var regex = [
   /(Mobile)? (\bSafari\/\d+\.\d+\b)? ?\b((Edg(A|iOS|e)?)\/(\d+)(.\d+\.){0,2}(\d+)?)\b ?((\bMobile)\/\w+)?/,
   /\b(Version)\/(\d+)(\.\d+){0,2}\b (Mobile\/\w+)? ?\b(Safari)\/(\d+)(\.\d+){0,3}$/,
   /[^Brave] \b((Chrome|CriOS)\/(\d+)(\.\d+){0,4})\b (Mobile(\/\w+\b)?)? ?\bSafari\/(\d+)(\.\d+){0,3}$/,
@@ -129,15 +130,15 @@ const regex = [
 ];
 
 // declaring empty variables
-let browserName;
-let browserVersion;
-let fullBrowserName;
-let browserNameAndVersion;
-let fullBrowserNameAndVersion = [];
-const validBrowserNames = Object.keys(browserValidation);
-let regexResultArr = [];
+var browserName;
+var browserVersion;
+var fullBrowserName;
+var browserNameAndVersion;
+var fullBrowserNameAndVersion = [];
+var validBrowserNames = Object.keys(browserValidation);
+var regexResultArr = [];
 
-for (let i = 0; i < regex.length; i++) {
+for (var i = 0; i < regex.length; i++) {
   if ((regexResultArr = userAgent.match(regex[i]))) {
     regexResultArr = userAgent.match(regex[i]);
     break;
@@ -151,7 +152,7 @@ if (!regexResultArr) {
   fullBrowserName = "";
   browserNameAndVersion = "";
 } else {
-  for (let i = 0; i < regexResultArr.length; i++) {
+  for (var i = 0; i < regexResultArr.length; i++) {
     if (validBrowserNames.indexOf(regexResultArr[i]) >= 0) {
       browserName = validBrowserNames.indexOf(regexResultArr[i]);
       browserName = validBrowserNames[browserName];
@@ -165,7 +166,7 @@ if (!regexResultArr) {
 
   // This happens because of Safari, safari does not return only one value and they are stored in an array, we need to iterate on each one.
   if (browserNameAndVersion.length >= 2) {
-    for (let i = 0; i < browserNameAndVersion.length; i++) {
+    for (var i = 0; i < browserNameAndVersion.length; i++) {
       fullBrowserNameAndVersion.push(regexResultArr[browserNameAndVersion[i]]);
     }
     fullBrowserNameAndVersion =
@@ -180,7 +181,7 @@ if (!regexResultArr) {
 }
 
 // defining an object that returns the required values
-let browser = {
+var browser = {
   validBrowsers: browserValidation,
   nameAndVersion: function () {
     if (fullBrowserNameAndVersion) {
@@ -194,8 +195,8 @@ let browser = {
   userAgent: navigator.userAgent,
   // Need to extract the first two characters of the full language since we do not change language based on location but rather on main language.
   language: function () {
-    let language = navigator.language.substring(0, 2);
-    let listOfSupportedLanguages = Object.keys(messages);
+    var language = navigator.language.substring(0, 2);
+    var listOfSupportedLanguages = Object.keys(messages);
     if (language in listOfSupportedLanguages) {
       return navigator.language.substring(0, 2);
     } else {
@@ -247,7 +248,7 @@ let browser = {
   },
   // checks if the popups are allowed
   arePopUpsAllowed: function () {
-    let newWindow = window.open(
+    var newWindow = window.open(
       "",
       "_media",
       "width=0,height=0,left=0,top=0,location=0, scrollbar=0"
@@ -298,16 +299,16 @@ let browser = {
   },
 };
 
-const greenCheck =
+var greenCheck =
   "<img CLASS='check' src='green_check.png' /> <span style='font-weight: bold;'>";
-const redCheck =
+var redCheck =
   "<img CLASS='check' src='red_x.png' /> <span style='font-weight: bold;'>";
 
-const alertCheck = "";
+var alertCheck = "";
 
-const closeCheck = "</span></br>";
+var closeCheck = "</span></br>";
 
-const messagesToDisplay = {
+var messagesToDisplay = {
   browserValidation: {
     objectAtt: browser.isBrowserValid(),
     supported:
@@ -361,9 +362,9 @@ const messagesToDisplay = {
   },
 };
 
-const messagesToDisplayKeys = Object.keys(messagesToDisplay);
+var messagesToDisplayKeys = Object.keys(messagesToDisplay);
 
-const displayingMessages = function (arrayOfMessages) {
+var displayingMessages = function (arrayOfMessages) {
   // added os and language to show that this can also display 1 message at a time or all of them
   document.writeln(
     ` <span style='font-weight: bold;'> The operating system is ${browser.whichOS()} </br></span>`
@@ -371,7 +372,7 @@ const displayingMessages = function (arrayOfMessages) {
   document.writeln(
     `<span style='font-weight: bold;'> The language is ${browser.language()} </br> </span>`
   );
-  for (let i = 0; i < arrayOfMessages.length; i++) {
+  for (var i = 0; i < arrayOfMessages.length; i++) {
     messagesToDisplay[arrayOfMessages[i]].objectAtt
       ? document.writeln(messagesToDisplay[arrayOfMessages[i]].supported)
       : document.writeln(messagesToDisplay[arrayOfMessages[i]].unsupported);
@@ -380,3 +381,18 @@ const displayingMessages = function (arrayOfMessages) {
 
 // To display all messages, please call the function displayingMessages and pass the messagesToDisplayKeys as parameters
 displayingMessages(messagesToDisplayKeys);
+var internetExplorerVariations = ["MSIE", "Trident"];
+
+if (userAgent.includes(internetExplorerVariations)) {
+  document.writeln(
+    ` <span style='font-weight: bold;'> The operating system is ${browser.whichOS()} </br></span>`
+  );
+  document.writeln(
+    `<span style='font-weight: bold;'> The language is ${browser.language()} </br> </span>`
+  );
+  document.writeln(messages[browser.language()].browserUnsupported);
+  document.writeln(messages[browser.language()].browserNameUnsupported);
+  document.writeln(messages[browser.language()].browserVersionUnsupported);
+  document.writeln(messages[browser.language()].browserCookiesBlocked);
+  document.writeln(messages[browser.language()].browserPopUpsBlocked);
+}
