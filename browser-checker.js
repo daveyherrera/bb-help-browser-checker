@@ -131,6 +131,8 @@ const regex = [
 // declaring empty variables
 let browserName;
 let browserVersion;
+let fullBrowserName;
+let browserNameAndVersion;
 let fullBrowserNameAndVersion = [];
 const validBrowserNames = Object.keys(browserValidation);
 let regexResultArr = [];
@@ -143,8 +145,12 @@ for (let i = 0; i < regex.length; i++) {
 }
 
 // Evaluates if the result received by the regex is null, if it is, then browser is not valid.
-if (regexResultArr == null) {
-  // literally do nothing
+if (!regexResultArr) {
+  console.log("we got here");
+  browserName = "";
+  browserVersion = "";
+  fullBrowserName = "";
+  browserNameAndVersion = "";
 } else {
   for (let i = 0; i < regexResultArr.length; i++) {
     if (validBrowserNames.indexOf(regexResultArr[i]) >= 0) {
@@ -156,8 +162,7 @@ if (regexResultArr == null) {
   browserVersion = browserValidation[browserName].versionPosition;
   browserVersion = Number(regexResultArr[browserVersion]);
 
-  let browserNameAndVersion =
-    browserValidation[browserName].nameAndVersionPosition;
+  browserNameAndVersion = browserValidation[browserName].nameAndVersionPosition;
 
   // This happens because of Safari, safari does not return only one value and they are stored in an array, we need to iterate on each one.
   if (browserNameAndVersion.length >= 2) {
@@ -172,13 +177,6 @@ if (regexResultArr == null) {
     fullBrowserNameAndVersion = regexResultArr[fullBrowserNameAndVersion];
     fullBrowserNameAndVersion = fullBrowserNameAndVersion.replace("/", " ");
   }
-}
-
-let fullBrowserName;
-
-if (!browserName) {
-  browserName = undefined;
-} else {
   fullBrowserName = browserValidation[browserName].name;
 }
 
@@ -216,32 +214,36 @@ let browser = {
     }
   },
   version: function () {
-    if (browserName == "Safari") {
-      if (
-        this.validBrowsers.Safari.platform.desktop.name.includes(this.platform)
-      ) {
-        if (
-          browserVersion >= this.validBrowsers.Safari.platform.desktop.version
-        ) {
-          return true;
-        }
-      }
-      if (
-        this.validBrowsers[browserName].platform.mobile.name.includes(
-          this.platform
-        )
-      ) {
-        if (
-          browserVersion >=
-          this.validBrowsers[browserName].platform.mobile.version
-        ) {
-          return true;
-        }
-      }
-    } else if (browserVersion >= this.validBrowsers[browserName].version) {
-      return true;
-    } else {
+    if (!browserVersion) {
       return false;
+    } else {
+      if (browserName == "Safari") {
+        if (
+          this.validBrowsers.Safari.platform.desktop.name.includes(
+            this.platform
+          )
+        ) {
+          if (
+            browserVersion >= this.validBrowsers.Safari.platform.desktop.version
+          ) {
+            return true;
+          }
+        }
+        if (
+          this.validBrowsers[browserName].platform.mobile.name.includes(
+            this.platform
+          )
+        ) {
+          if (
+            browserVersion >=
+            this.validBrowsers[browserName].platform.mobile.version
+          ) {
+            return true;
+          }
+        }
+      } else if (browserVersion >= this.validBrowsers[browserName].version) {
+        return true;
+      }
     }
   },
   // checks if the popups are allowed
