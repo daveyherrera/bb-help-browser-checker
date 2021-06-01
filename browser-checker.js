@@ -334,18 +334,14 @@ var get_browser_language = function () {
 // Using old validation function names to facilitate the whole transition.
 
 var get_browser = function () {
-  if (
-    !browser.nameAndVersion() ||
-    browser.nameAndVersion() == null ||
-    browser.nameAndVersion() == ""
-  ) {
+  if (browser.isNameValid()) {
+    return document.writeln(greenCheck + browser.nameAndVersion() + closeCheck);
+  } else {
     return document.writeln(
       redCheck +
         messages[browser.language()].browserNameUnsupported +
         closeCheck
     );
-  } else {
-    return document.writeln(greenCheck + browser.nameAndVersion() + closeCheck);
   }
 };
 
