@@ -275,7 +275,7 @@ var browser = {
       return "Windows Mobile";
     } else if (
       userAgent.indexOf("Windows NT") > 1 &&
-      !userAgent.indexOf("Xbox") > 1
+      userAgent.indexOf("Xbox") < 0
     ) {
       return "Windows";
     } else if (
