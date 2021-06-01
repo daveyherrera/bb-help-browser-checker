@@ -4,11 +4,98 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="browser-checker.js"></script>
     <title>testing</title>
   </head>
   <body>
-    <h1>Testing</h1>
-    <p class=""><span class="browser_name"></span></p>
+    <p>
+      Opening this page checks whether&nbsp;your browser supports the most
+      recent release of Blackboard Learn.
+    </p>
+    <p class="tip">
+      If you're using an older version of Blackboard Learn, your browser may be
+      supported. Refer to the Browser Support topic for more information.
+    </p>
+    <p>
+      Your browser is:
+      <script>
+        get_withBb();
+      </script>
+    </p>
+    <table>
+      <tbody>
+        <tr>
+          <td>Operating System</td>
+          <td>
+            <script>
+              get_os();
+            </script>
+          </td>
+        </tr>
+        <tr>
+          <td>Browser Language</td>
+          <td>
+            <script>
+              get_browser_language();
+            </script>
+          </td>
+        </tr>
+        <tr>
+          <td>Browser Version</td>
+          <td>
+            <script>
+              get_browser();
+            </script>
+          </td>
+        </tr>
+        <tr>
+          <td>Browser Security - Cookies</td>
+          <td>
+            <script>
+              get_cookies();
+            </script>
+          </td>
+        </tr>
+        <tr>
+          <td>Browser Security - Pop-up blocker</td>
+          <td>
+            <script>
+              get_popup();
+            </script>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>
+        If you passed all the checks, you should be able to use all of the main
+        features of Blackboard Learn.
+      </li>
+      <li>
+        If you see a red X and an "UNSUPPORTED" message, your web browser is not
+        supported by Blackboard Learn.
+      </li>
+    </ul>
+    <h3>Optional technologies</h3>
+    <p>
+      The following technologies might help you view certain content within
+      Blackboard Learn.
+    </p>
+    <table>
+      <tbody>
+        <tr>
+          <td>PDF Viewing</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>
+        If you see a green check and a "SUPPORTED" message but did NOT pass all
+        the checks, you should be able to use most of the main features of
+        Blackboard Learn. Certain features may require you to enable a plug-in
+        or update its version.
+      </li>
+    </ul>
   </body>
-  <script type="text/javascript" src="browser-checker.js"></script>
 </html>
