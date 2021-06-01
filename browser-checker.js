@@ -3,6 +3,7 @@
 // DO NOT translate the text behind the :, only the text within double quotes "".
 // Using ISO 639-1 first two characters for language
 // In order to test IE had to change all variables from const or let to var
+// due to Internet explorer, cannot use includes, instead using indexOf
 
 // Getting the data from useragent
 var userAgent = navigator.userAgent;
@@ -20,28 +21,31 @@ var closeCheck = "</span><br/>";
 
 var messages = {
   en: {
-    browserNameSupported: " is supported",
     browserNameUnsupported: " Your browser is not supported",
     browserVersionSupported: " version is supported",
     browserVersionUnsupported: "The browser version is not supported",
-    browserSupported: "Your browser is SUPPORTED",
-    browserUnsupported: "Your browser is NOT SUPPORTED",
-    browserPopUpsAllowed: "Pop-up blocker is blocking new windows",
-    browserPopUpsBlocked: "Pop-up blocker is not blocking new windows",
-    browserCookiesAllowed: "Cookies are enabled",
-    browserCookiesBlocked: "Cookies are blocked",
+    browserSupported: "SUPPORTED",
+    browserUnsupported: "NOT SUPPORTED",
+    browserPopUpsAllowed: "Pop-up blocker is disabled",
+    browserPopUpsBlocked: "Pop-up blocker is blocking new windows",
+    browserCookiesAllowed: "Enabled",
+    browserCookiesBlocked: "Disabled",
+    operatingSystem: "The operating system is ",
+    language: "The browser language is",
   },
   es: {
     browserNameSupported: "El nombre del navegador es soportado",
     browserNameUnsupported: "El nombre del navegador no es soportado",
     browserVersionSupported: "La versión del navegador es soportada",
     browserVersionUnsupported: "La versión del navegador no es soportada",
-    browserSupported: "Su navegador es Soportado",
-    browserUnsupported: "Su navegador no es soportado",
+    browserSupported: "Soportado",
+    browserUnsupported: "No soportado",
     browserPopUpsAllowed: "No se están bloqueando ventanas emergentes",
     browserPopUpsBlocked: "Se están bloqueando ventanas emergentes",
     browserCookiesAllowed: "Las cookies están permitidas",
     browserCookiesBlocked: "Las cookies están siendo bloqueadas",
+    operatingSystem: "El sistema operativo es ",
+    language: "El idioma del navegador es",
   },
 };
 
@@ -199,7 +203,7 @@ var browser = {
     if (fullBrowserNameAndVersion) {
       return fullBrowserNameAndVersion;
     } else {
-      return "Not a valid browser";
+      return false;
     }
   },
   // The object navigator returns most of the data
@@ -231,9 +235,9 @@ var browser = {
     } else {
       if (browserName == "Safari") {
         if (
-          this.validBrowsers.Safari.platform.desktop.name.includes(
+          this.validBrowsers.Safari.platform.desktop.name.indexOf(
             this.platform
-          )
+          ) > 1
         ) {
           if (
             browserVersion >= this.validBrowsers.Safari.platform.desktop.version
@@ -242,9 +246,9 @@ var browser = {
           }
         }
         if (
-          this.validBrowsers[browserName].platform.mobile.name.includes(
+          this.validBrowsers[browserName].platform.mobile.name.indexOf(
             this.platform
-          )
+          ) > 1
         ) {
           if (
             browserVersion >=
@@ -280,30 +284,31 @@ var browser = {
     }
   },
   whichOS: function () {
-    if (userAgent.includes("Macintosh")) {
-      return "MacOS";
-    } else if (userAgent.includes("Windows Mobile")) {
+    if (userAgent.indexOf("Macintosh") > 1) {
+      return "Mac OS";
+    } else if (userAgent.indexOf("Windows Mobile") > 1) {
       return "Windows Mobile";
     } else if (
-      userAgent.includes("Windows NT") &&
-      !userAgent.includes("Xbox")
+      userAgent.indexOf("Windows NT") > 1 &&
+      !userAgent.indexOf("Xbox") > 1
     ) {
       return "Windows";
-    } else if (userAgent.includes("Windows NT") && userAgent.includes("Xbox")) {
+    } else if (
+      userAgent.indexOf("Windows NT") > 1 &&
+      userAgent.indexOf("Xbox") > 1
+    ) {
       return "Windows for Xbox";
-    } else if (userAgent.includes("Android")) {
+    } else if (userAgent.indexOf("Android") > 1) {
       return "Android";
-    } else if (userAgent.includes("X11") || userAgent.includes("Linux")) {
+    } else if (userAgent.indexOf("X11") > 1 || userAgent.indexOf("Linux") > 1) {
       return "Linux";
     } else if (
-      userAgent.includes(
-        browserValidation.Safari.platform.mobile.name[0] ||
-          browserValidation.Safari.platform.mobile.name[1] ||
-          browserValidation.Safari.platform.mobile.name[2]
-      )
+      userAgent.indexOf(browserValidation.Safari.platform.mobile.name[0]) > 1 ||
+      userAgent.indexOf(browserValidation.Safari.platform.mobile.name[1]) > 1 ||
+      userAgent.indexOf(browserValidation.Safari.platform.mobile.name[2]) > 1
     ) {
       return "iOS";
-    } else if (userAgent.includes("CrOS")) {
+    } else if (userAgent.indexOf("CrOS") > 1) {
       return "Chrome OS / ChromeBook";
     } else {
       return "Unknown OS";
@@ -311,92 +316,78 @@ var browser = {
   },
 };
 
-var messagesToDisplay = {
-  browserValidation: {
-    objectAtt: browser.isBrowserValid(),
-    supported:
-      greenCheck + messages[browser.language()].browserSupported + closeCheck,
-    unsupported:
-      redCheck + messages[browser.language()].browserUnsupported + closeCheck,
-  },
-  browserName: {
-    objectAtt: browser.isNameValid(),
-    supported:
-      greenCheck +
-      fullBrowserName +
-      messages[browser.language()].browserNameSupported +
-      closeCheck,
-    unsupported:
-      redCheck +
-      messages[browser.language()].browserNameUnsupported +
-      closeCheck,
-  },
-  browserVersion: {
-    objectAtt: browser.version(),
-    supported:
-      greenCheck +
-      browser.nameAndVersion() +
-      messages[browser.language()].browserVersionSupported +
-      closeCheck,
-    unsupported:
-      redCheck +
-      messages[browser.language()].browserVersionUnsupported +
-      closeCheck,
-  },
-  cookiesValidation: {
-    objectAtt: browser.areCookiesAllowed,
-    supported:
-      greenCheck +
-      messages[browser.language()].browserCookiesAllowed +
-      closeCheck,
-    unsupported:
-      redCheck +
-      messages[browser.language()].browserCookiesBlocked +
-      closeCheck,
-  },
-  popUpsValidation: {
-    objectAtt: browser.arePopUpsAllowed(),
-    supported:
-      greenCheck +
-      messages[browser.language()].browserPopUpsAllowed +
-      closeCheck,
-    unsupported:
-      redCheck + messages[browser.language()].browserPopUpsBlocked + closeCheck,
-  },
-};
-
 // VALIDATING IF THE BROWSER IS INTERNET EXPLORER
 // Ie Does not support includes.
-if (userAgent.indexOf("MSIE") >= 0 || userAgent.indexOf("Trident") >= 0) {
-  console.log(userAgent.indexOf("MSIE"));
-  console.log(userAgent.indexOf("Trident"));
 
-  document.writeln(messagesToDisplay.browserName.unsupported);
-  throw new Error(
-    "This is not an error. This is just to abort javascript - this text does not need translation"
-  );
-}
-
-var messagesToDisplayKeys = Object.keys(messagesToDisplay);
-
-var displayingMessages = function (arrayOfMessages) {
-  // added os and language to show that this can also display 1 message at a time or all of them
-  document.writeln(
-    "<span style='font-weight: bold;'> The operating system is " +
-      browser.whichOS() +
-      "</br></span>"
-  );
-  document.writeln(
-    "<span style='font-weight: bold;'> The language is " +
-      browser.language() +
-      "</br></span>"
-  );
-  for (var i = 0; i < arrayOfMessages.length; i++) {
-    messagesToDisplay[arrayOfMessages[i]].objectAtt
-      ? document.writeln(messagesToDisplay[arrayOfMessages[i]].supported)
-      : document.writeln(messagesToDisplay[arrayOfMessages[i]].unsupported);
+// Using old validation function names to facilitate the whole transition.
+var get_withBb = function () {
+  if (browser.isBrowserValid()) {
+    return document.writeln(
+      greenCheck + messages[browser.language()].browserSupported + closeCheck
+    );
+  } else {
+    return document.writeln(
+      redCheck + messages[browser.language()].browserUnsupported + closeCheck
+    );
   }
 };
 
-// To display all messages, please call the function displayingMessages and pass the messagesToDisplayKeys as parameters
-displayingMessages(messagesToDisplayKeys);
+// Using old validation function names to facilitate the whole transition.
+var get_os = function () {
+  if (browser.whichOS() != "Unknown OS") {
+    return document.writeln(greenCheck + browser.whichOS() + closeCheck);
+  } else {
+    return document.write(redCheck + browser.whichOS() + closeCheck);
+  }
+};
+
+// Using old validation function names to facilitate the whole transition.
+var get_browser_language = function () {
+  return document.writeln(browser.language());
+};
+
+// Using old validation function names to facilitate the whole transition.
+
+var get_browser = function () {
+  if (
+    !browser.nameAndVersion() ||
+    browser.nameAndVersion() == null ||
+    browser.nameAndVersion() == ""
+  ) {
+    return document.writeln(
+      redCheck +
+        messages[browser.language()].browserNameUnsupported +
+        closeCheck
+    );
+  } else {
+    return document.writeln(greenCheck + browser.nameAndVersion() + closeCheck);
+  }
+};
+
+var get_cookies = function () {
+  if (browser.areCookiesAllowed) {
+    return document.writeln(
+      greenCheck +
+        messages[browser.language()].browserCookiesAllowed +
+        closeCheck
+    );
+  } else {
+    return document.writeln(
+      redCheck + messages[browser.language()].browserCookiesBlocked + closeCheck
+    );
+  }
+};
+
+var get_popup = function () {
+  if (browser.arePopUpsAllowed()) {
+    return document.writeln(
+      greenCheck +
+        messages[browser.language()].browserPopUpsAllowed +
+        closeCheck
+    );
+  } else {
+    return document.writeln(
+      redCheck + messages[browser.language()].browserPopUpsBlocked + closeCheck
+    );
+  }
+};
