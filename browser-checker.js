@@ -22,7 +22,6 @@ var closeCheck = "</span><br/>";
 var messages = {
   en: {
     browserNameUnsupported: " Your browser is not supported",
-    browserVersionSupported: " version is supported",
     browserVersionUnsupported: "The browser version is not supported",
     browserSupported: "SUPPORTED",
     browserUnsupported: "NOT SUPPORTED",
@@ -32,20 +31,6 @@ var messages = {
     browserCookiesBlocked: "Disabled",
     operatingSystem: "The operating system is ",
     language: "The browser language is",
-  },
-  es: {
-    browserNameSupported: "El nombre del navegador es soportado",
-    browserNameUnsupported: "El nombre del navegador no es soportado",
-    browserVersionSupported: "La versión del navegador es soportada",
-    browserVersionUnsupported: "La versión del navegador no es soportada",
-    browserSupported: "Soportado",
-    browserUnsupported: "No soportado",
-    browserPopUpsAllowed: "No se están bloqueando ventanas emergentes",
-    browserPopUpsBlocked: "Se están bloqueando ventanas emergentes",
-    browserCookiesAllowed: "Las cookies están permitidas",
-    browserCookiesBlocked: "Las cookies están siendo bloqueadas",
-    operatingSystem: "El sistema operativo es ",
-    language: "El idioma del navegador es",
   },
 };
 
