@@ -345,7 +345,7 @@ var get_browser = function () {
         closeCheck
     );
   } else {
-    return document.writeln(redCheck + browser.nameAndVersion() + closeCheck);
+    return document.writeln(greenCheck + browser.nameAndVersion() + closeCheck);
   }
 };
 
