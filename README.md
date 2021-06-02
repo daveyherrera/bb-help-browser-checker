@@ -1,5 +1,7 @@
 # Browser checker for Learn
 
+Latest version can be checked here: https://stage-help.blackboard.com/Learn/Student/Original/Getting_Started/Browser_Support/Browser_Checker
+
 This browser checker was created in order to allow our clients to validate if the browser they are currently using is a browser that we support.
 I will explain in this document what most of the code does since there are plenty (according to me) of notes on the code itself.
 
