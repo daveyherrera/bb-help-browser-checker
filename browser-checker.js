@@ -10,10 +10,10 @@ var userAgent = navigator.userAgent;
 
 // green check for supported
 var greenCheck =
-  "<img CLASS='check' src='green_check.png' /> <span style='font-weight: bold;'>";
+  "<img CLASS='check' src='https://help-blackboard-com.s3.amazonaws.com/js/test/green_check.png' /> <span style='font-weight: bold;'>";
 // red check for unsupported
 var redCheck =
-  "<img CLASS='check' src='red_x.png' /> <span style='font-weight: bold;'>";
+  "<img CLASS='check' src='https://help-blackboard-com.s3.amazonaws.com/js/test/red_x.png' /> <span style='font-weight: bold;'>";
 // Closing the tags opened by red or green check
 var closeCheck = "</span><br/>";
 
@@ -222,7 +222,7 @@ var browser = {
         if (
           this.validBrowsers.Safari.platform.desktop.name.indexOf(
             this.platform
-          ) > 1
+          ) >= 0
         ) {
           if (
             browserVersion >= this.validBrowsers.Safari.platform.desktop.version
@@ -233,7 +233,7 @@ var browser = {
         if (
           this.validBrowsers[browserName].platform.mobile.name.indexOf(
             this.platform
-          ) > 1
+          ) >= 0
         ) {
           if (
             browserVersion >=
