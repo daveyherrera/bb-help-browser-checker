@@ -22,7 +22,6 @@ var closeCheck = "</span><br/>";
 var messages = {
   en: {
     browserNameUnsupported: " Your browser is not supported",
-    browserVersionUnsupported: "The browser version is not supported",
     browserSupported: "SUPPORTED",
     browserUnsupported: "NOT SUPPORTED",
     browserPopUpsAllowed: "Pop-up blocker is disabled",
