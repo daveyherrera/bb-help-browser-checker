@@ -72,12 +72,30 @@ Basically what follows is is just an evaluation that checks if the values within
 
 I also set to undefined the vrowser name when there browserName is false.
 
+### Messages
+
+The basic structure of this object is:
+
+en: {. // Indicates the language
+    browserNameUnsupported: "Your browser is not supported", // Message when browser name is not supported
+    browserSupported: "SUPPORTED", // Message when browser is supported
+    browserUnsupported: "NOT SUPPORTED", // Message when browser is not supported
+    browserPopUpsAllowed: "Pop-up blocker is disabled", // Message when popups are allowed
+    browserPopUpsBlocked: "Pop-up blocker is blocking new windows", // Message when popups are blocked
+    browserCookiesAllowed: "Enabled", // Message when browser cookies are allowed
+    browserCookiesBlocked: "Disabled", // Message when browser cookies are blocked
+    operatingSystem: "The operating system is ", // Message to indicate the OS name
+    language: "The browser language is", // Message of the language of the browser
+}
+
+This object will allow updates for future languages, references and maintenance.
+
 ### Browser Object
 
 Will describe each attribute:
 
    * validBrowsers: contains the object browserValidation
-   * nameAndVersion: returns the full browser name and version or not a valid browser if it is not valid
+   * nameAndVersion: returns the full browser name and version (truthy) or false if it is not valid
    * platform: it calls navigator.platform
    * userAgent: calls again navigator.userAgent
    * language: extracts from language.navigator the first two letters of the result and compares them to a listOfSupportedLanguages that is generated based on the messages object, if the user's language does not exist on messages, it defaults to english
@@ -88,17 +106,13 @@ Will describe each attribute:
    * isBrowserValid returns boolean if it was possible to compare the version and name to the object validBrowsers
    * whichOS returns the name of the operating system
 
-### MessagesToDisplay object
+### Functions to display information
 
-This is used as an object to be iterated by a function in order to send the correct messages at once
+We wanted to keep this update simple, deliver the same experience users are used to but updated in the background with more information, so we decided to use the same function names to avoid updating the html file.
 
-   * objectAtt is the value stored on the browser object
-   * supported is the value that needs to be returned whatever we are evaluating is valud or not, it automatically calls the language given the browser language.
-   * unsupported is the same as supported but negating it
-
-
-#### Displaying messages
-
-allows to return a single message or many at the same time.
-
-
+   * get_withBb() Returns a message when the browser is valid or not (SUPPORTED, UNSUPPORTED)
+   * get_os() Returns the name of the operating system.
+   * get_browser_language() returns the two letters ISO-639-1 of the language code
+   * get_browser(): returns the full browser name and version or (Your browser is not supported)
+   * get_cookies(): returns a message that allow users to know if the cookies are allowed or not
+   * get_popup(): returns a message that allow users to know if the pop ups are allowed or no
