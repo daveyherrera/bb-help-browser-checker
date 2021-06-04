@@ -17,8 +17,11 @@ var redCheck =
 
 var warningCheck =
   "<img CLASS='check' src='https://help-blackboard-com.s3.amazonaws.com/js/test/o_warning.png' /> <span style='font-weight: bold;'>";
-// Closing the tags opened by red or green check
-var closeCheck = "</span><br/>";
+
+var noCheck = "<span style='font-weight: bold;'>";
+
+// Closing the tags opened
+var closeCheck = "</span>";
 
 // validating the browser is internet explorer, if it is, the complete execution is stopped.
 
@@ -322,9 +325,9 @@ var get_withBb = function () {
 // Using old validation function names to facilitate the whole transition.
 var get_os = function () {
   if (browser.whichOS() != "Unknown OS") {
-    return document.writeln(greenCheck + browser.whichOS() + closeCheck);
+    return document.writeln(noCheck + browser.whichOS() + closeCheck);
   } else {
-    return document.write(redCheck + browser.whichOS() + closeCheck);
+    return document.write(noCheck + browser.whichOS() + closeCheck);
   }
 };
 
