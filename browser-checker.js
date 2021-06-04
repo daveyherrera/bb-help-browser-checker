@@ -14,6 +14,9 @@ var greenCheck =
 // red check for unsupported
 var redCheck =
   "<img CLASS='check' src='https://help-blackboard-com.s3.amazonaws.com/js/test/red_x.png' /> <span style='font-weight: bold;'>";
+
+var warningCheck =
+  "<img CLASS='check' src='https://help-blackboard-com.s3.amazonaws.com/js/test/o_warning.png' /> <span style='font-weight: bold;'>";
 // Closing the tags opened by red or green check
 var closeCheck = "</span><br/>";
 
@@ -367,7 +370,9 @@ var get_popup = function () {
     );
   } else {
     return document.writeln(
-      redCheck + messages[browser.language()].browserPopUpsBlocked + closeCheck
+      warningCheck +
+        messages[browser.language()].browserPopUpsBlocked +
+        closeCheck
     );
   }
 };
