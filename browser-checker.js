@@ -34,8 +34,6 @@ var messages = {
     browserPopUpsBlocked: "Pop-up blocker is blocking new windows",
     browserCookiesAllowed: "Enabled",
     browserCookiesBlocked: "Disabled",
-    operatingSystem: "The operating system is ",
-    language: "The browser language is",
   },
 };
 
