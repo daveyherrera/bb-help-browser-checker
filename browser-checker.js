@@ -35,6 +35,17 @@ var messages = {
     browserCookiesAllowed: "Enabled",
     browserCookiesBlocked: "Disabled",
   },
+  es: {
+    browserNameUnsupported: " Su navegador no está soportado",
+    browserSupported: "SOPORTADO",
+    browserUnsupported: "NO SOPORTADO",
+    browserPopUpsAllowed:
+      "El bloqueo de ventanas emergentes está deshabilitado",
+    browserPopUpsBlocked:
+      "El bloqueo de nuevas ventanas emergentes está activo",
+    browserCookiesAllowed: "Activo",
+    browserCookiesBlocked: "Deshabilitado",
+  },
 };
 
 // As of may 2021
@@ -199,10 +210,10 @@ var browser = {
   userAgent: navigator.userAgent,
   // Need to extract the first two characters of the full language since we do not change language based on location but rather on main language.
   language: function () {
-    var language = navigator.language.substring(0, 2);
+    var language = window.drupalSettings.path.currentLanguage;
     var listOfSupportedLanguages = Object.keys(messages);
     if (language in listOfSupportedLanguages) {
-      return navigator.language.substring(0, 2);
+      return window.drupalSettings.path.currentLanguage;
     } else {
       // If the language does not exist on our supported list of languages, will always return english by default
       return "en";
