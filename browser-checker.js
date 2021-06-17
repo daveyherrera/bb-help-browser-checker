@@ -10,13 +10,13 @@ var userAgent = navigator.userAgent;
 
 // green check for supported
 var greenCheck =
-  "<img CLASS='check' src='https://help-blackboard-com.s3.amazonaws.com/js/test/green_check.png' /> <span style='font-weight: bold;'>";
+  "<img CLASS='check' src='https://help-blackboard-com.s3.amazonaws.com/img/browser_checker-green_check.png' /> <span style='font-weight: bold;'>";
 // red check for unsupported
 var redCheck =
-  "<img CLASS='check' src='https://help-blackboard-com.s3.amazonaws.com/js/test/red_x.png' /> <span style='font-weight: bold;'>";
+  "<img CLASS='check' src='https://help-blackboard-com.s3.amazonaws.com/img/browser_checker-red_check.png' /> <span style='font-weight: bold;'>";
 
 var warningCheck =
-  "<img CLASS='check' src='https://help-blackboard-com.s3.amazonaws.com/js/test/o_warning.png' /> <span style='font-weight: bold;'>";
+  "<img CLASS='check' src='https://help-blackboard-com.s3.amazonaws.com/img/browser_checker-warning_check.png' /> <span style='font-weight: bold;'>";
 
 var noCheck = "<span style='font-weight: bold;'>";
 
