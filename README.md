@@ -98,7 +98,7 @@ Will describe each attribute:
    * nameAndVersion: returns the full browser name and version (truthy) or false if it is not valid
    * platform: it calls navigator.platform
    * userAgent: calls again navigator.userAgent
-   * language: extracts from language.navigator the first two letters of the result and compares them to a listOfSupportedLanguages that is generated based on the messages object, if the user's language does not exist on messages, it defaults to english
+   * language: Takes the same value of language that drupal has and compares it to a listOfSupportedLanguages that is generated based on the messages object, if the user's language does not exist on messages, it defaults to english
    * areCookiesAllowed: returns a boolean 
    * isNameValid: returns a boolean if the browser name has a value
    * version: returns browserVersion
