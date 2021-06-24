@@ -1,4 +1,3 @@
-"use strict";
 // Object created to make localization easier
 // DO NOT translate the text behind the :, only the text within double quotes "".
 // Using ISO 639-1 first two characters for language
@@ -7,6 +6,7 @@
 
 // Getting the data from useragent
 var userAgent = navigator.userAgent;
+var language = window.drupalSettings.path.currentLanguage;
 
 // green check for supported
 var greenCheck =
@@ -210,12 +210,11 @@ var browser = {
   userAgent: navigator.userAgent,
   // Need to extract the first two characters of the full language since we do not change language based on location but rather on main language.
   language: function () {
-    var language = window.drupalSettings.path.currentLanguage;
-    var listOfSupportedLanguages = Object.keys(messages);
-    if (language in listOfSupportedLanguages) {
-      return window.drupalSettings.path.currentLanguage;
+    const availableLanguages = Object.keys(messages);
+    const arrPos = availableLanguages.indexOf(language);
+    if (arrPos >= 0) {
+      return language;
     } else {
-      // If the language does not exist on our supported list of languages, will always return english by default
       return "en";
     }
   },
