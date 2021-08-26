@@ -7,6 +7,7 @@
 // Getting the data from useragent
 var userAgent = navigator.userAgent;
 var language = window.drupalSettings.path.currentLanguage;
+language = language.slice(0,2);
 
 // green check for supported
 var greenCheck =
