@@ -7,7 +7,7 @@
 // Getting the data from useragent
 var userAgent = navigator.userAgent;
 var language = window.drupalSettings.path.currentLanguage;
-language = language.slice(0,2);
+language = language.slice(0, 2);
 
 // green check for supported
 var greenCheck =
@@ -40,8 +40,10 @@ var messages = {
     browserNameUnsupported: " Su navegador no está soportado",
     browserSupported: "SOPORTADO",
     browserUnsupported: "NO SOPORTADO",
-    browserPopUpsAllowed: "El bloqueo de ventanas emergentes está deshabilitado",
-    browserPopUpsBlocked: "El bloqueo de nuevas ventanas emergentes está activo",
+    browserPopUpsAllowed:
+      "El bloqueo de ventanas emergentes está deshabilitado",
+    browserPopUpsBlocked:
+      "El bloqueo de nuevas ventanas emergentes está activo",
     browserCookiesAllowed: "Activo",
     browserCookiesBlocked: "Deshabilitado",
   },
@@ -58,8 +60,10 @@ var messages = {
     browserNameUnsupported: " El navegador no és compatible",
     browserSupported: "COMPATIBLE",
     browserUnsupported: "NO COMPATIBLE",
-    browserPopUpsAllowed: "El bloquejador de finestres emergents està desactivat",
-    browserPopUpsBlocked: "El bloquejador de finestres emergents està bloquejant finestres noves",
+    browserPopUpsAllowed:
+      "El bloquejador de finestres emergents està desactivat",
+    browserPopUpsBlocked:
+      "El bloquejador de finestres emergents està bloquejant finestres noves",
     browserCookiesAllowed: "Activat",
     browserCookiesBlocked: "Desactivat",
   },
@@ -77,7 +81,8 @@ var messages = {
     browserSupported: "CEFNOGIR",
     browserUnsupported: "NIS CEFNOGIR",
     browserPopUpsAllowed: "Rhwystrydd ffenestr naid wedi'i analluogi",
-    browserPopUpsBlocked: "Mae rhwystrydd ffenestr naid yn rhwystro ffenestri newydd",
+    browserPopUpsBlocked:
+      "Mae rhwystrydd ffenestr naid yn rhwystro ffenestri newydd",
     browserCookiesAllowed: "Galluogwyd",
     browserCookiesBlocked: "Analluogwyd",
   },
@@ -104,7 +109,8 @@ var messages = {
     browserSupported: "PRIS EN CHARGE",
     browserUnsupported: "NON PRIS EN CHARGE",
     browserPopUpsAllowed: "Le bloqueur de fenêtres pop-up est désactivé",
-    browserPopUpsBlocked: "Le bloqueur de fenêtres pop-up bloque de nouvelles fenêtres",
+    browserPopUpsBlocked:
+      "Le bloqueur de fenêtres pop-up bloque de nouvelles fenêtres",
     browserCookiesAllowed: "Activé",
     browserCookiesBlocked: "Désactivé",
   },
@@ -122,7 +128,8 @@ var messages = {
     browserSupported: "SUPPORTATO",
     browserUnsupported: "NON SUPPORTATO",
     browserPopUpsAllowed: "Blocco pop-up disabilitato",
-    browserPopUpsBlocked: "Il blocco pop-up impedisce l'apertura di nuove finestre",
+    browserPopUpsBlocked:
+      "Il blocco pop-up impedisce l'apertura di nuove finestre",
     browserCookiesAllowed: "Abilitato",
     browserCookiesBlocked: "Disabilitato",
   },
@@ -131,7 +138,8 @@ var messages = {
     browserSupported: "サポート",
     browserUnsupported: "サポートされていません",
     browserPopUpsAllowed: "ポップアップブロッカーが無効",
-    browserPopUpsBlocked: "ポップアップブロッカーが新規ウィンドウをブロックしています",
+    browserPopUpsBlocked:
+      "ポップアップブロッカーが新規ウィンドウをブロックしています",
     browserCookiesAllowed: "有効",
     browserCookiesBlocked: "無効",
   },
@@ -167,7 +175,8 @@ var messages = {
     browserSupported: "COMPATÍVEL",
     browserUnsupported: "NÃO COMPATÍVEL",
     browserPopUpsAllowed: "O bloqueador de pop-ups está desativado",
-    browserPopUpsBlocked: "O bloqueador de pop-ups está bloqueando novas janelas",
+    browserPopUpsBlocked:
+      "O bloqueador de pop-ups está bloqueando novas janelas",
     browserCookiesAllowed: "Ativado",
     browserCookiesBlocked: "Desativado",
   },
@@ -176,7 +185,8 @@ var messages = {
     browserSupported: "ПОДДЕРЖИВАЕТСЯ",
     browserUnsupported: "НЕ ПОДДЕРЖИВАЕТСЯ",
     browserPopUpsAllowed: "Блокировка всплывающих окон отключена",
-    browserPopUpsBlocked: "Блокировка всплывающих окон включена. Открытие новых окон блокируется.",
+    browserPopUpsBlocked:
+      "Блокировка всплывающих окон включена. Открытие новых окон блокируется.",
     browserCookiesAllowed: "Включено",
     browserCookiesBlocked: "Отключено",
   },
@@ -194,7 +204,8 @@ var messages = {
     browserSupported: "DESTEKLENİYOR",
     browserUnsupported: "DESTEKLENMİYOR",
     browserPopUpsAllowed: "Açılır pencere engelleyici devre dışı",
-    browserPopUpsBlocked: "Açılır pencere engelleyici yeni pencereleri engelliyor",
+    browserPopUpsBlocked:
+      "Açılır pencere engelleyici yeni pencereleri engelliyor",
     browserCookiesAllowed: "Etkin",
     browserCookiesBlocked: "Devre dışı",
   },
@@ -202,7 +213,6 @@ var messages = {
 
 // As of may 2021
 /* Valid browsers:
-   
     -- Safari 13 + on macOS
     -- Safari 12+ on iOS
     -- Chrome 87+ on any OS
@@ -210,13 +220,23 @@ var messages = {
     -- Firefox 78+ on any OS
 */
 
+// Updated on April 21st 2022
+/* Valid browsers:
+    -- Safari 15 + on macOS
+    -- Safari 15+ on iOS
+    -- Chrome 100+ on any OS
+    -- Edge 100+ on any OS
+    -- Firefox 99+ on any OS
+*/
+
 // At the moment of this implementation, the object navigator.userAgentData is not available on Safari and Firefox, opera supports it but the position is different than edge and chrome...
 
 // As of may 2021, this object defines the validation values that a browser may receive
+// Updated on April 21st 2022
 var browserValidation = {
   Edg: {
     name: "Microsoft Edge",
-    version: 87,
+    version: 100,
     nameAndVersionPosition: [3],
     namePosition: 4,
     versionPosition: 6,
@@ -224,7 +244,8 @@ var browserValidation = {
   EdgA: {
     name: "Microsoft Edge for Android",
     // Mobile version on Android has a different version than in PC
-    version: 46,
+    // as of april 21st 2022, they have merged the versions
+    version: 100,
     nameAndVersionPosition: [3],
     namePosition: 4,
     versionPosition: 6,
@@ -232,22 +253,24 @@ var browserValidation = {
   EdgiOS: {
     name: "Microsoft Edge for iOS",
     // Mobile version on iOS has a different version than in PC
-    version: 46,
+    // as of april 21st 2022, they have merged the versions
+    version: 100,
     nameAndVersionPosition: [3],
     namePosition: 4,
     versionPosition: 6,
   },
   Chrome: {
     name: "Google Chrome",
-    version: 87,
+    version: 100,
     nameAndVersionPosition: [1],
     namePosition: 2,
     versionPosition: 3,
   },
   // Google chrome on iOS is called CriOS
+  // as of april 21st 2022, they have merged the versions
   CriOS: {
     name: "Google Chrome for iOS",
-    version: 33,
+    version: 100,
     // This is the position of the values based on the regex
     nameAndVersionPosition: [1],
     namePosition: 2,
@@ -255,7 +278,7 @@ var browserValidation = {
   },
   Firefox: {
     name: "Firefox",
-    version: 78,
+    version: 99,
     // This is the position of the values based on the regex
     nameAndVersionPosition: [3],
     namePosition: 4,
@@ -263,8 +286,9 @@ var browserValidation = {
   },
   FxiOS: {
     name: "Firefox for iOS",
-    version: 33,
+    version: 99,
     // This is the position of the values based on the regex
+    // as of april 21st 2022, they have merged the versions
     nameAndVersionPosition: [1],
     namePosition: 2,
     versionPosition: 3,
@@ -277,11 +301,12 @@ var browserValidation = {
     platform: {
       desktop: {
         name: ["MacIntel"],
-        version: 13,
+        version: 15,
       },
+      // as of april 21st 2022, they have merged the versions
       mobile: {
         name: ["iPhone", "iPad", "iPod"],
-        version: 12,
+        version: 15,
       },
     },
   },
